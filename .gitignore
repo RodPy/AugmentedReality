@@ -218,8 +218,6 @@ pip-log.txt
 # custom_django
 *.json
 AugmentedReality/STATIC/media/images/*
-AugmentedReality/STATIC/media/system_files/*
-AugmentedReality/STATIC/media/images/*
 AugmentedReality/STATIC/media/images_lectures/*
 AugmentedReality/STATIC/media/pdf_lectures/*
 AugmentedReality/my-config.txt
