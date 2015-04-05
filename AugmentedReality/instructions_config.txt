@@ -1,0 +1,10 @@
+# instructions to my-config.
+# See my-config-example.txt
+# Duplicate my-config-example.txt and rename it to my-config
+# Using YOUR new my-config attempt for the following instructions about the file
+# equals sign separate key-value
+# semi-collon separate OUT_LIST. i.e. in the following example there is only one OUT_LIST but two IN_LIST([ [in_list], [in_list] ]) 
+# comma separate IN_LIST
+# empty list is represented like this: []. i.e. ALLOWED_HOST=[]
+# empty string is represented really EMPTY. i.e. HOST_DATABASE_HOST=
+# Do not place unnecessary space, specially in the KEY side.
