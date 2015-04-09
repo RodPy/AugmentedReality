@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="description" content="">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Augmented Reality Management</title>
+<!--        <link rel="stylesheet" href="{% static 'frontend/app/styles/styles.css' %}" type="text/css"> -->
+	 	<script type="text/javascript" src="{% static 'frontend/app/scripts/jquery-1.11.2.min.js' %}"></script>
+	    <script src="{% static 'frontend/app/bower_components/webcomponentsjs/webcomponents.js' %}"></script>
+	    <link rel="import" href="{% static 'frontend/app/elements/elements.html' %}">
+	</head>
+<body unresolved>
+	<core-scaffold>
+	  	<core-header-panel navigation flex mode="seamed">
+	  		<core-toolbar>Augmented Reality</core-toolbar>
+		    <core-selector selected="{% block selected_item_number %}{% endblock %}">
+				<paper-item>
+					<core-item icon="home" label="Home">
+						<a href="/"></a>
+					</core-item>
+				</paper-item>
+				<paper-item>
+					<core-item icon="list" label="Lectures">
+						<a href="/lectures/"></a>
+					</core-item>
+				</paper-item>
+				<paper-item>
+					<core-item icon="settings" label="Settings">
+					 	<a href="/settings/"></a>
+				 	</core-item>
+				</paper-item>
+		    </core-selector>
+	  	</core-header-panel>
+	  	<div tool>{% block view_title %}{% endblock %}</div>
+	  	<div>
+	  		{% block view_content %} {% endblock %}
+	  	</div>
+	</core-scaffold>
+
+	<script type="text/javascript" src="{% static 'frontend/app/scripts/jquery.cookie.js' %}"></script>
+    <script src="{% static 'frontend/app/scripts/app.js' %}"></script>
+</body>
+</html>

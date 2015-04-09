@@ -69,7 +69,6 @@ MANAGERS = my_config.get("MANAGERS",((),))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = my_config["SECRET_KEY"]
-SECRET_KEY = 'vfrr*-)ysl4=t1_9ckcq+ccmf6v6&rwl0&x*@fnscpy6*beuyl'
 
 DEBUG = my_config.get("DEBUG_GENERAL_STAGE",False)
 
@@ -85,6 +84,7 @@ STATICFILES_FINDERS = (
 # Application definition
 
 INSTALLED_APPS = (
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,15 +92,31 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     'presentation',
 )
 
+SITE_ID = 1
+
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+         'rest_framework.permissions.IsAdminUser'
+    ),
+    'PAGINATE_BY': 10,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
 }
 
 MIDDLEWARE_CLASSES = (
@@ -120,6 +136,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
+
+        # Required by `allauth` template tags
+    "django.core.context_processors.request",
+    # `allauth` specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 ROOT_URLCONF = 'AugmentedReality.urls'

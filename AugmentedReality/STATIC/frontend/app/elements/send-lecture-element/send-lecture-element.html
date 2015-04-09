@@ -1,0 +1,42 @@
+<polymer-element name="send-lecture-element" attributes="">
+	<template>
+	    <link rel="stylesheet" href="send-lecture-element.css">	
+		<core-ajax
+			id = "ajax_content"
+			auto
+			method = "{{method}}"
+			params = "{{params}}"
+			url="{{api_url}}"
+	      	handleAs="json"
+	      	loading = "true"
+	      	progress = "{loaded: 0, total: 100, lengthComputable: true}"
+	      	response="{{data}}"
+	    ></core-ajax>
+	    
+		<paper-input label="Title" value="{{obj.title}}" style="margin-top:5px;"></paper-input>
+		<paper-icon-button icon="add-circle" style="color:darkorange;" on-tap="{{add_button_click}}"></paper-icon-button>
+	    
+	</template>
+	<script>
+		Polymer({
+			created:function(){
+				this.api_url = "";
+			},
+			ready:function(){
+			},
+			obj:{
+				title:"",
+			},
+			observe:{
+				"obj.title":"validate",
+			},
+			validate:function(oldValue, newValue){
+				console.log("OldValue: " + oldValue);
+				console.log("NewValue: " + newValue);
+			},
+			add_button_click:function(event, detail, sender){
+				console.log("add_button_click");
+			},
+		});
+	</script>
+</polymer-element>

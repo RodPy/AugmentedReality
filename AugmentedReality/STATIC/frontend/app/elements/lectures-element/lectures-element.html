@@ -1,0 +1,31 @@
+<link rel="import" href="../user-lectures/user-lectures.html">
+
+<polymer-element name="lectures-element" attributes="">
+	<template>
+	    <link rel="stylesheet" href="lectures-element.css">	
+		<core-ajax
+			id = "ajax_content"
+			auto
+			method = "{{method}}"
+			params = "{{params}}"
+			url="{{api_url}}"
+	      	handleAs="json"
+	      	loading = "true"
+	      	progress = "{loaded: 0, total: 100, lengthComputable: true}"
+	      	response="{{data}}"
+	    ></core-ajax>
+	    
+   	    <user-lectures-add></user-lectures-add>    
+	    <user-lectures></user-lectures>
+	    
+	</template>
+	<script>
+		Polymer({
+			created:function(){
+				this.api_url = "";
+			},
+			ready:function(){
+			},
+		});
+	</script>
+</polymer-element>
