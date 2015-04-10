@@ -23,8 +23,12 @@ class Teacher(Profile):
 class Lecture(models.Model):
     title = models.CharField("Title", max_length=200)
     author = models.ForeignKey(Profile, verbose_name="Author", related_name="profile")
-    file = models.FileField(upload_to=upload_to_lecture_images_pdf, verbose_name="File")
+    file = models.FileField(upload_to=upload_to_lecture_images_pdf, verbose_name="File", null=True, blank=True)
     
+
+    def save(self):
+        
+        super(Lecture, self).save()
 
     def __str__(self):
         return self.title + " - " + self.author.__str__()

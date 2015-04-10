@@ -35,6 +35,7 @@ class LecturerViewSet(viewsets.ModelViewSet):
         pdf_im = PdfFileReader(file_pdf)
         for page_num in range(pdf_im.getNumPages()):
             page_file_name = file_pdf.path+'['+str(page_num)+']'
+            print(page_file_name)
             im = PythonMagick.Image(page_file_name)
             
             image_lecture_page = Image()
@@ -51,8 +52,9 @@ class LecturerViewSet(viewsets.ModelViewSet):
         if(file_pdf):
             title_form = request.data.get("title",None)
             author_instance = request.user.profile
-            lecture = Lecture(title = title_form, author = author_instance, file = file_pdf)
+            lecture = Lecture(title = title_form, author = author_instance, file = File(file_pdf))
             lecture.save()
+            print("lecture saved")
             
             if(lecture):
                 self.generate_images_for_lecture(lecture, lecture.file)
