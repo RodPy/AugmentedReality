@@ -4,13 +4,14 @@ from api.serializers import LectureSerializer, ImageSerializer,\
     ProfileSerializer, UserSerializer
 from django.contrib.auth.models import User
 from django.core.files import File
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, permission_classes
 from rest_auth.registration.views import SocialLogin
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_framework.response import Response
 from PyPDF2.pdf import PdfFileReader
 import PythonMagick
 from os.path import basename
+from api.permissions import IsOwner
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -27,7 +28,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class LecturerViewSet(viewsets.ModelViewSet):
     queryset = Lecture.objects.all()
     serializer_class = LectureSerializer
-    
+        
     def get_queryset(self):
         return self.queryset.order_by("title")
     
@@ -61,6 +62,14 @@ class LecturerViewSet(viewsets.ModelViewSet):
             return self.list(request)
         
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+ 
+    @list_route(methods=['POST','GET'])
+    def own(self, request):
+        if(request.method == 'POST'):
+            self.queryset = self.queryset.filter(author = request.post.get('username'))
+        else:
+            self.queryset = self.queryset.filter(author = request.user)
+        return self.list(request)
  
     
 class ImageViewSet(viewsets.ModelViewSet):
